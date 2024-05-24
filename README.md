@@ -2,13 +2,15 @@
 
 Federated Learning and Distributed Data Parallelism implementation in both synchronous and asynchronous modes. 
 
-Download the dataset tiny-imagenet-200 from  and put it into the datasets directory
+install required dependencies using pip utility:
 
-Run the training, e.g. : runing with mpirun tools, example with 4 processes (4 GPUs)
+`` pip install requirements.txt `` 
 
-`` mpirun -np 4 python test_ddp_async.py --model-name 'resnet18'``
+Run the training, e.g. : runing with mpirun tools, example distributed training with 2 processes (2 GPUs)
 
-`` mpirun -np 4 python test_ddp_async.py --model-name 'efficientnet_b0' ``
+`` mpirun -np 2 python test_ddp_async.py --model-name 'resnet18'``
+
+`` mpirun -np 2 python test_ddp_async.py --model-name 'efficientnet_b0' ``
 
 
 
