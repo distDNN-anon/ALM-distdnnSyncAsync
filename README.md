@@ -20,7 +20,8 @@ Please navigate to this directory before running the script.
 `` mpirun -np 2 python test_nlp_ddp_async.py --model-name 'bert-base-uncased'``
 
 
-Training in sequential mode, only use one process, you need only to replace the 2 by 1. 
+
+### Training in sequential mode, only use one process, you need only to replace the 2 by 1. 
 
 
 
