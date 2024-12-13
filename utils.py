@@ -3,10 +3,10 @@ import torch.nn as nn
 from torchvision import datasets
 from torchvision import transforms as T
 from torch.utils.data import DataLoader
+from datasets import load_dataset, load_from_disk
 import os
 import random
 import numpy as np
-
 
 def set_random_seeds(random_seed=0):
 
@@ -55,4 +55,35 @@ def generate_dataloader(args=None, data=TRAIN_DIR, name="train", transform=prepr
                         sampler=train_sampler,
                         **kwargs)
     return dataloader
+
+
+def accuracy(output, target, topk=(1, 5)):
+    """
+    Computes the top-k accuracy for the specified values of k.
+
+    Args:
+        output (torch.Tensor): Model outputs of shape (batch_size, num_classes).
+        target (torch.Tensor): True labels of shape (batch_size).
+        topk (tuple): Tuple of k values for which to calculate accuracy.
+
+    Returns:
+        list: List of accuracies for each k in topk.
+    """
+    maxk = max(topk)
+
+    # Get the top-k predictions and their indices
+    _, pred = output.topk(maxk, 1, True, True)  # (batch_size, maxk)
+    pred = pred.t()  # Transpose to (maxk, batch_size)
+
+    # Compare with the ground truth and get the correct predictions
+    correct = pred.eq(target.view(1, -1).expand_as(pred))  # (maxk, batch_size)
+
+    # Calculate accuracy for each k
+    accuracies = []
+    for k in topk:
+        correct_k = correct[:k].reshape(-1).float().sum(0)  # Sum correct predictions for top-k
+        accuracies.append(correct_k) 
+
+    return accuracies
+
 
