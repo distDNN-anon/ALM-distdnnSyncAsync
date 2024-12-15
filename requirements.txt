@@ -1,4 +1,5 @@
 mpi4py                       
 numpy                        
 torch                        
-torchvision                  
+torchvision          
+datasets
